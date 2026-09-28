@@ -1,477 +1,55 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Ally Account Hiring Outreach</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light dark">
+<title>Ally Account Outreach</title>
 <style>
-  /* ============================================================
-     THEME VARIABLES — light (default) + dark mode
-     ============================================================ */
-  :root {
-    --bg: #eef1f6;
-    --bg-gradient: linear-gradient(180deg, #eef1f6 0%, #e6eaf1 100%);
-    --card-bg: #ffffff;
-    --panel-bg: #ffffff;
-    --text: #1f2933;
-    --text-muted: #6b7280;
-    --border: #e4e7eb;
-    --input-bg: #fbfcfe;
-    --green: #16a34a;
-    --green-dark: #15803d;
-    --green-light: #d1fae5;
-    --green-light-hover: #a7f3d0;
-    --green-light-text: #15803d;
-    --orange: #d97706;
-    --orange-bg: #fff3e0;
-    --accent: #2563eb;
-    --shadow: 0 1px 3px rgba(16,24,40,0.06), 0 6px 16px rgba(16,24,40,0.06);
-    --shadow-hover: 0 10px 28px rgba(16,24,40,0.14);
-    --radius: 16px;
-  }
-
-  /* Dark theme overrides — applied when <html data-theme="dark"> */
-  html[data-theme="dark"] {
-    --bg: #0f141b;
-    --bg-gradient: linear-gradient(180deg, #0f141b 0%, #12181f 100%);
-    --card-bg: #1a212b;
-    --panel-bg: #1a212b;
-    --text: #e5e9f0;
-    --text-muted: #9aa4b2;
-    --border: #2a333f;
-    --input-bg: #141a22;
-    --green: #22c55e;
-    --green-dark: #16a34a;
-    --green-light: #14352169;
-    --green-light-hover: #1b4a2c;
-    --green-light-text: #4ade80;
-    --orange: #fbbf24;
-    --orange-bg: #3a2c0f;
-    --accent: #60a5fa;
-    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.35);
-    --shadow-hover: 0 12px 30px rgba(0,0,0,0.5);
-  }
-
-  /* ============================================================
-     BASE RESET
-     ============================================================ */
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-
-  body {
-    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
-    background: var(--bg-gradient);
-    background-attachment: fixed;
-    color: var(--text);
-    line-height: 1.55;
-    padding: 0 16px 60px;
-    transition: background 0.3s ease, color 0.3s ease;
-  }
-
-  .container { max-width: 1140px; margin: 0 auto; }
-
-  /* ============================================================
-     TOP BAR (brand + theme toggle)
-     ============================================================ */
-  .topbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 20px 0 14px;
-  }
-  .brand {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-  }
-  .brand .logo {
-    width: 42px; height: 42px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--green) 0%, #0ea5e9 100%);
-    display: flex; align-items: center; justify-content: center;
-    color: #fff; font-weight: 800; font-size: 1.2rem;
-    box-shadow: 0 4px 12px rgba(22,163,74,0.35);
-  }
-  .brand .brand-text .title {
-    font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em;
-  }
-  .brand .brand-text .subtitle {
-    font-size: 0.82rem; color: var(--text-muted);
-  }
-
-  /* Theme toggle switch */
-  .theme-toggle {
-    display: flex; align-items: center; gap: 8px;
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    border-radius: 999px;
-    padding: 6px 12px;
-    cursor: pointer;
-    font-size: 0.85rem; font-weight: 600;
-    color: var(--text-muted);
-    box-shadow: var(--shadow);
-    transition: box-shadow 0.2s, transform 0.12s;
-  }
-  .theme-toggle:hover { box-shadow: var(--shadow-hover); }
-  .theme-toggle:active { transform: scale(0.97); }
-
-  /* ============================================================
-     HERO HEADER
-     ============================================================ */
-  header {
-    text-align: center;
-    margin: 8px 0 30px;
-  }
-  header h1 {
-    font-size: 2rem;
-    font-weight: 800;
-    letter-spacing: -0.02em;
-    background: linear-gradient(135deg, var(--text) 0%, var(--green-dark) 120%);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-  html[data-theme="dark"] header h1 {
-    background: linear-gradient(135deg, #e5e9f0 0%, #4ade80 120%);
-    -webkit-background-clip: text;
-    background-clip: text;
-  }
-  header p {
-    color: var(--text-muted);
-    margin-top: 6px;
-    font-size: 0.98rem;
-  }
-
-  /* ============================================================
-     PANELS
-     ============================================================ */
-  .panel {
-    background: var(--panel-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 24px;
-    margin-bottom: 24px;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .panel-head {
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
-  }
-  .panel h2 {
-    font-size: 1.05rem; font-weight: 700;
-    display: flex; align-items: center; gap: 8px;
-  }
-  .step-num {
-    display: inline-flex; align-items: center; justify-content: center;
-    width: 24px; height: 24px; border-radius: 7px;
-    background: var(--green); color: #fff;
-    font-size: 0.8rem; font-weight: 700;
-  }
-
-  /* Collapsible template body */
-  .collapse-body { margin-top: 14px; }
-  .collapse-body.hidden { display: none; }
-
-  /* ============================================================
-     INPUTS
-     ============================================================ */
-  textarea, input[type="text"] {
-    width: 100%;
-    padding: 13px 14px;
-    border: 1px solid var(--border);
-    border-radius: 11px;
-    font-size: 0.92rem;
-    color: var(--text);
-    background: var(--input-bg);
-    transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
-  }
-  textarea {
-    min-height: 170px; resize: vertical;
-    font-family: "Consolas", "Courier New", monospace;
-  }
-  #messageTemplate { min-height: 260px; }
-  textarea:focus, input[type="text"]:focus {
-    outline: none;
-    border-color: var(--green);
-    box-shadow: 0 0 0 3px rgba(22,163,74,0.18);
-  }
-
-  .hint {
-    font-size: 0.82rem; color: var(--text-muted); margin-top: 8px;
-  }
-  .hint code {
-    background: var(--input-bg);
-    border: 1px solid var(--border);
-    padding: 1px 6px; border-radius: 6px;
-    font-size: 0.8rem;
-  }
-
-  /* ============================================================
-     BUTTONS
-     ============================================================ */
-  button {
-    cursor: pointer; border: none; border-radius: 11px;
-    font-size: 0.9rem; font-weight: 600; padding: 11px 20px;
-    transition: transform 0.12s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s;
-  }
-  button:active { transform: scale(0.97); }
-
-  .btn-green { background: var(--green); color: #fff; }
-  .btn-green:hover { background: var(--green-dark); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
-
-  .btn-secondary {
-    background: var(--panel-bg); color: var(--text);
-    border: 1px solid var(--border);
-  }
-  .btn-secondary:hover { box-shadow: var(--shadow); }
-
-  .btn-small { padding: 7px 14px; font-size: 0.82rem; }
-
-  .btn-clickme {
-    background: var(--green-light); color: var(--green-light-text);
-    width: 100%; margin-top: 16px;
-    border: 1px solid transparent;
-  }
-  html[data-theme="dark"] .btn-clickme { border-color: var(--border); }
-  .btn-clickme:hover { background: var(--green-light-hover); box-shadow: 0 4px 14px rgba(16,185,129,0.25); }
-  .btn-clickme:disabled { opacity: 0.65; cursor: not-allowed; }
-
-  .toolbar { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-
-  /* ============================================================
-     STATS
-     ============================================================ */
-  .stats { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 24px; }
-  .stat-box {
-    flex: 1 1 150px;
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 18px;
-    text-align: center;
-    position: relative; overflow: hidden;
-    transition: background 0.3s, border-color 0.3s;
-  }
-  .stat-box::before {
-    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
-  }
-  .stat-total::before { background: var(--accent); }
-  .stat-completed::before { background: var(--green); }
-  .stat-pending::before { background: var(--orange); }
-  .stat-box .num { font-size: 1.8rem; font-weight: 800; }
-  .stat-box .label {
-    font-size: 0.76rem; color: var(--text-muted);
-    text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;
-  }
-  .stat-completed .num { color: var(--green); }
-  .stat-pending .num { color: var(--orange); }
-
-  /* Progress bar */
-  .progress-wrap {
-    margin-bottom: 24px; background: var(--card-bg);
-    border: 1px solid var(--border); border-radius: var(--radius);
-    box-shadow: var(--shadow); padding: 16px 18px;
-  }
-  .progress-label {
-    display: flex; justify-content: space-between;
-    font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;
-  }
-  .progress-track {
-    height: 10px; border-radius: 999px;
-    background: var(--input-bg); overflow: hidden;
-  }
-  .progress-fill {
-    height: 100%; width: 0%;
-    background: linear-gradient(90deg, var(--green) 0%, #0ea5e9 100%);
-    border-radius: 999px; transition: width 0.4s ease;
-  }
-
-  /* ============================================================
-     SEARCH
-     ============================================================ */
-  .search-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
-  .search-row input { flex: 1 1 260px; }
-
-  /* ============================================================
-     CARDS
-     ============================================================ */
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-    gap: 18px;
-  }
-  .card {
-    background: var(--card-bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow);
-    padding: 20px;
-    display: flex; flex-direction: column;
-    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.3s, border-color 0.3s;
-  }
-  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
-  .card .avatar {
-    width: 40px; height: 40px; border-radius: 50%;
-    background: linear-gradient(135deg, var(--green) 0%, #0ea5e9 100%);
-    color: #fff; font-weight: 700; font-size: 1rem;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .card .who { display: flex; align-items: center; gap: 12px; }
-  .card .name { font-size: 1.05rem; font-weight: 700; }
-  .card .id { font-size: 0.83rem; color: var(--text-muted); margin-top: 2px; }
-
-  .badge {
-    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; white-space: nowrap;
-  }
-  .badge-pending { background: var(--orange-bg); color: var(--orange); }
-  .badge-completed { background: var(--green-light); color: var(--green-light-text); }
-
-  .empty-state {
-    text-align: center; color: var(--text-muted);
-    padding: 44px 20px; font-size: 0.95rem;
-  }
-
-  /* ============================================================
-     TOAST NOTIFICATION
-     ============================================================ */
-  .toast {
-    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
-    background: var(--green-dark); color: #fff;
-    padding: 12px 22px; border-radius: 12px;
-    box-shadow: var(--shadow-hover); font-size: 0.9rem; font-weight: 600;
-    opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease; z-index: 1000;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
-
-  /* ============================================================
-     RESPONSIVE
-     ============================================================ */
-  @media (max-width: 600px) {
-    header h1 { font-size: 1.55rem; }
-    .stat-box { flex: 1 1 45%; }
-    .panel { padding: 18px; }
-    .brand .brand-text .subtitle { display: none; }
-  }
+:root{--bg:#f1f5f9;--surface:rgba(255,255,255,.9);--solid:#fff;--soft:#f7f9fc;--text:#17212b;--muted:#667085;--line:#dde4ec;--green:#128052;--green2:#0d6843;--greenSoft:#e1f5ea;--blue:#2563eb;--blueSoft:#eaf1ff;--orange:#c76b08;--orangeSoft:#fff2dd;--red:#bd3d38;--shadow:0 12px 35px rgba(30,55,85,.1);--shadow2:0 22px 55px rgba(30,55,85,.17);--radius:18px}
+html[data-theme=dark]{--bg:#0d141d;--surface:rgba(24,33,44,.92);--solid:#18212c;--soft:#121a24;--text:#edf2f7;--muted:#9aa7b6;--line:#2e3947;--green:#30b978;--green2:#49cb8e;--greenSoft:rgba(48,185,120,.14);--blue:#79a9ff;--blueSoft:rgba(74,126,219,.15);--orange:#f5b14c;--orangeSoft:rgba(245,177,76,.13);--red:#fb7b75;--shadow:0 12px 35px rgba(0,0,0,.28);--shadow2:0 22px 55px rgba(0,0,0,.4)}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100vh;overflow-x:hidden;font-family:Inter,"Segoe UI",system-ui,sans-serif;color:var(--text);background:linear-gradient(145deg,var(--bg),color-mix(in srgb,var(--bg) 80%,#4188e8));transition:.3s}
+body:before,body:after{content:"";position:fixed;z-index:-1;width:360px;height:360px;border-radius:50%;filter:blur(28px);opacity:.15;animation:drift 14s ease-in-out infinite alternate}body:before{background:#17a86b;top:-170px;left:-100px}body:after{background:#3982e8;right:-140px;top:22%;animation-delay:-6s}@keyframes drift{to{transform:translate3d(35px,45px,0) scale(1.14)}}@keyframes rise{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:none}}@keyframes cardIn{from{opacity:0;transform:translateY(12px) scale(.98)}}
+.container{width:min(1160px,calc(100% - 32px));margin:auto;padding-bottom:70px}.topbar{display:flex;align-items:center;justify-content:space-between;padding:22px 0}.brand{display:flex;align-items:center;gap:12px}.logo{width:44px;height:44px;border-radius:14px;display:grid;place-items:center;color:#fff;font-weight:900;font-size:1.25rem;background:linear-gradient(135deg,#18a968,#3379e5);box-shadow:0 8px 20px rgba(24,169,104,.28);animation:float 4s ease-in-out infinite}@keyframes float{50%{transform:translateY(-3px) rotate(-2deg)}}.brand-title{font-weight:850;font-size:1.1rem}.brand-sub{color:var(--muted);font-size:.78rem}
+button,input,select,textarea{font:inherit}button{border:0;cursor:pointer}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid color-mix(in srgb,var(--green) 28%,transparent);outline-offset:2px}.btn{padding:11px 17px;border-radius:11px;font-weight:750;transition:.18s}.btn:hover:not(:disabled){transform:translateY(-2px);box-shadow:var(--shadow)}.btn:active:not(:disabled){transform:scale(.98)}.btn:disabled{opacity:.55;cursor:not-allowed}.primary{color:#fff;background:linear-gradient(135deg,var(--green),var(--green2))}.secondary{color:var(--text);background:var(--solid);border:1px solid var(--line)}.quiet{color:var(--muted);background:transparent;border:1px solid var(--line)}.danger{color:var(--red);background:transparent;border:1px solid color-mix(in srgb,var(--red) 35%,var(--line))}.small{padding:7px 11px;font-size:.8rem}
+.hero{text-align:center;padding:22px 0 32px;animation:rise .55s both}.eyebrow{color:var(--green);text-transform:uppercase;font-weight:850;letter-spacing:.13em;font-size:.72rem}h1{margin:9px 0 10px;font-size:clamp(2rem,5vw,3.3rem);line-height:1.08;letter-spacing:-.045em}.hero p{color:var(--muted);max-width:680px;margin:auto}.pills{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;margin-top:18px}.pill{padding:6px 11px;border:1px solid var(--line);border-radius:999px;background:var(--surface);color:var(--muted);font-size:.77rem;font-weight:750}
+.panel{padding:23px;margin-bottom:22px;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow);backdrop-filter:blur(12px);animation:rise .5s both}.panel-head{display:flex;justify-content:space-between;gap:12px;align-items:center;flex-wrap:wrap;margin-bottom:17px}.panel-title{display:flex;gap:9px;align-items:center;margin:0;font-size:1.02rem}.step{width:26px;height:26px;border-radius:8px;display:grid;place-items:center;background:var(--green);color:#fff;font-size:.76rem}.actions,.toolbar,.filter-builder{display:flex;gap:9px;align-items:center;flex-wrap:wrap}
+.tabs{display:inline-flex;padding:4px;border-radius:12px;background:var(--soft);border:1px solid var(--line);margin-bottom:16px}.tab{padding:8px 14px;border-radius:8px;color:var(--muted);background:transparent;font-size:.84rem;font-weight:750}.tab.active{color:var(--text);background:var(--solid);box-shadow:0 3px 10px rgba(0,0,0,.08)}.hidden{display:none!important}
+.field-label{display:block;margin-bottom:6px;color:var(--muted);font-size:.79rem;font-weight:750}input[type=text],input[type=url],select,textarea{width:100%;color:var(--text);background:var(--soft);border:1px solid var(--line);border-radius:11px;padding:11px 12px;transition:.2s}input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px color-mix(in srgb,var(--green) 15%,transparent)}textarea{min-height:155px;resize:vertical;line-height:1.55}#messageTemplate{min-height:250px;font-family:Consolas,monospace}.hint{margin:8px 0 0;color:var(--muted);font-size:.8rem}.hint code{padding:2px 5px;border-radius:5px;border:1px solid var(--line);background:var(--soft)}.url-row{display:grid;grid-template-columns:1fr auto;gap:9px}.field-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}.mapping{margin-top:16px;padding:16px;background:var(--soft);border:1px solid var(--line);border-radius:14px}.mapping h3{margin:0 0 12px;font-size:.91rem}.filter-builder{margin-top:13px;padding-top:13px;border-top:1px solid var(--line)}.filter-builder select{width:auto;min-width:145px;flex:1}.filter-builder input{width:auto;flex:2;min-width:160px}.chips{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.chip{display:inline-flex;gap:7px;align-items:center;padding:6px 9px;border-radius:999px;background:var(--blueSoft);color:var(--blue);font-size:.75rem;font-weight:750}.chip button{color:inherit;background:none;padding:0;font-size:1rem}.sheet-meta{display:flex;justify-content:space-between;gap:12px;color:var(--muted);font-size:.78rem;margin-top:13px}.preview-wrap{margin-top:14px;max-height:235px;overflow:auto;border:1px solid var(--line);border-radius:12px}table{width:100%;border-collapse:collapse;font-size:.78rem}th,td{padding:9px 11px;text-align:left;white-space:nowrap;border-bottom:1px solid var(--line);max-width:250px;overflow:hidden;text-overflow:ellipsis}th{position:sticky;top:0;z-index:1;background:var(--solid);color:var(--muted)}tr:last-child td{border-bottom:0}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:22px 0 14px}.stat{position:relative;overflow:hidden;padding:18px;text-align:center;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}.stat:after{content:"";position:absolute;height:3px;left:0;right:0;bottom:0;background:var(--blue)}.stat.done:after{background:var(--green)}.stat.pending:after{background:var(--orange)}.stat-num{font-weight:900;font-size:1.75rem}.stat-label{margin-top:5px;color:var(--muted);text-transform:uppercase;font-size:.68rem;letter-spacing:.08em;font-weight:750}.done .stat-num{color:var(--green)}.pending .stat-num{color:var(--orange)}.progress-panel{padding:14px 17px}.progress-label{display:flex;justify-content:space-between;margin-bottom:8px;font-size:.78rem;color:var(--muted)}.track{height:9px;overflow:hidden;background:var(--soft);border:1px solid var(--line);border-radius:99px}.fill{width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,var(--green),#3387e6);transition:width .5s}
+.list-tools{display:grid;grid-template-columns:minmax(240px,1fr) auto auto;gap:9px;margin:18px 0}.list-tools select{width:auto;min-width:140px}.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}.card{padding:18px;background:var(--surface);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);transition:.22s;animation:cardIn .38s both}.card:hover{transform:translateY(-4px);box-shadow:var(--shadow2);border-color:color-mix(in srgb,var(--green) 35%,var(--line))}.card-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.person{display:flex;gap:11px;min-width:0;align-items:center}.avatar{flex:none;width:42px;height:42px;display:grid;place-items:center;border-radius:50%;color:#fff;font-weight:850;background:linear-gradient(135deg,var(--green),#397fe3)}.person-name{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.person-id{color:var(--muted);font-size:.77rem;margin-top:2px}.badge{flex:none;padding:5px 8px;border-radius:999px;font-size:.66rem;font-weight:850;text-transform:uppercase}.badge-pending{color:var(--orange);background:var(--orangeSoft)}.badge-done{color:var(--green);background:var(--greenSoft)}.card-actions{display:grid;grid-template-columns:1fr auto auto;gap:7px;margin-top:16px}.teams{color:#fff;background:linear-gradient(135deg,#5558c9,#7655bc)}.empty{text-align:center;padding:55px 20px;color:var(--muted)}.empty-icon{font-size:2rem;margin-bottom:7px}
+.toast{position:fixed;z-index:1001;left:50%;bottom:24px;max-width:calc(100% - 30px);padding:11px 18px;border-radius:12px;color:#fff;background:#19232e;box-shadow:var(--shadow2);font-weight:700;font-size:.85rem;transform:translate(-50%,130%);opacity:0;transition:.3s}.toast.show{transform:translate(-50%,0);opacity:1}.toast.error{background:#9e342f}dialog{width:min(610px,calc(100% - 28px));padding:0;border:1px solid var(--line);border-radius:18px;color:var(--text);background:var(--solid);box-shadow:var(--shadow2)}dialog::backdrop{background:rgba(5,12,20,.55);backdrop-filter:blur(4px)}.modal-head{display:flex;justify-content:space-between;align-items:center;padding:17px 19px;border-bottom:1px solid var(--line)}.modal-head h2{margin:0;font-size:1rem}.modal-body{padding:19px}.message-preview{margin:0;padding:15px;max-height:52vh;overflow:auto;white-space:pre-wrap;font-family:inherit;color:var(--text);background:var(--soft);border:1px solid var(--line);border-radius:12px}.modal-actions{display:flex;justify-content:flex-end;gap:8px;padding:0 19px 19px}
+@media(max-width:720px){.field-grid,.stats{grid-template-columns:1fr}.stats{gap:9px}.stat{padding:13px}.list-tools{grid-template-columns:1fr 1fr}.list-tools input{grid-column:1/-1}.url-row{grid-template-columns:1fr}.brand-sub{display:none}}@media(max-width:460px){.container{width:calc(100% - 20px)}.panel{padding:16px}.cards{grid-template-columns:1fr}.card-actions{grid-template-columns:1fr 1fr}.card-actions .teams{grid-column:1/-1}}@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="container">
-
-  <!-- ===================== TOP BAR ===================== -->
-  <div class="topbar">
-    <div class="brand">
-      <div class="logo">A</div>
-      <div class="brand-text">
-        <div class="title">Ally Account</div>
-        <div class="subtitle">Recruitment Outreach Portal</div>
-      </div>
-    </div>
-    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
-      <span id="themeIcon">🌙</span><span id="themeLabel">Dark</span>
-    </button>
+<main class="container">
+ <nav class="topbar"><div class="brand"><div class="logo">A</div><div><div class="brand-title">Ally Account</div><div class="brand-sub">Recruitment Outreach Portal</div></div></div><button class="btn secondary small" id="themeToggle"><span id="themeIcon">🌙</span> <span id="themeLabel">Dark</span></button></nav>
+ <header class="hero"><div class="eyebrow">Smarter outreach workspace</div><h1>Reach the right talent, faster.</h1><p>Import associate data, filter precisely, personalize your draft, and launch it directly in the Microsoft Teams desktop app.</p><div class="pills"><span class="pill">Direct Teams launch</span><span class="pill">Google Sheets & CSV</span><span class="pill">Multi-column filters</span></div></header>
+ <section class="panel">
+  <div class="panel-head"><h2 class="panel-title"><span class="step">1</span>Choose your data source</h2><span class="hint" id="sourceSummary">No data loaded</span></div>
+  <div class="tabs" role="tablist"><button class="tab active" data-pane="manualPane">Paste data</button><button class="tab" data-pane="sheetPane">Sheet URL</button></div>
+  <div id="manualPane" class="source-pane"><textarea id="inputData" placeholder="891186    Soumi Das&#10;2219451   Adaka Kusumanjali&#10;2483594   Sanjeevi Venugopal"></textarea><p class="hint">One person per line: <strong>Associate ID or email</strong>, followed by the <strong>name</strong>. Duplicate IDs are ignored.</p><div class="toolbar" style="margin-top:14px"><button class="btn primary" id="generateBtn">Generate associate list</button></div></div>
+  <div id="sheetPane" class="source-pane hidden"><label class="field-label" for="sheetUrl">Public Google Sheets link or CSV URL</label><div class="url-row"><input id="sheetUrl" type="url" placeholder="https://docs.google.com/spreadsheets/d/.../edit#gid=0"><button class="btn primary" id="loadSheetBtn">Fetch sheet</button></div><p class="hint">Google Sheets must be shared as “Anyone with the link can view.” Direct CSV URLs are also supported.</p>
+   <div class="mapping hidden" id="mappingBox"><h3>Map columns and filter rows</h3><div class="field-grid"><div><label class="field-label" for="idColumn">Associate ID / email column</label><select id="idColumn"></select></div><div><label class="field-label" for="nameColumn">Associate name column</label><select id="nameColumn"></select></div></div>
+    <div class="filter-builder"><select id="filterColumn" aria-label="Filter column"></select><select id="filterOperator" aria-label="Filter operator"><option value="contains">contains</option><option value="equals">equals</option><option value="not_equals">does not equal</option><option value="starts">starts with</option><option value="not_empty">is not empty</option><option value="empty">is empty</option></select><input id="filterValue" type="text" placeholder="Filter value"><button class="btn secondary small" id="addFilterBtn">+ Add filter</button></div>
+    <div class="chips" id="filterChips"></div><div class="sheet-meta"><span id="sheetMeta"></span><span>Preview: first 6 rows</span></div><div class="preview-wrap"><table id="sheetPreview"></table></div><div class="toolbar" style="margin-top:14px"><button class="btn primary" id="importSheetBtn">Import filtered associates</button><button class="btn quiet small" id="clearFiltersBtn">Clear filters</button></div>
+   </div>
   </div>
-
-  <!-- ===================== HERO ===================== -->
-  <header>
-    <h1>Ally Account Hiring Outreach</h1>
-    <p>Send personalized Microsoft Teams recruitment messages to associates in one click.</p>
-  </header>
-
-  <!-- ===================== INPUT SECTION ===================== -->
-  <section class="panel">
-    <div class="panel-head">
-      <h2><span class="step-num">1</span> Paste Associate Data</h2>
-    </div>
-    <textarea id="inputData" placeholder="891186    Soumi Das
-2219451   Adaka Kusumanjali
-2483594   Sanjeevi Venugopal
-457947    Arun Vincent"></textarea>
-    <p class="hint">
-      Format per line: <strong>Associate ID</strong> (first value) then the
-      <strong>Associate Name</strong>. Duplicate IDs and empty lines are ignored automatically.
-    </p>
-    <div class="toolbar">
-      <button class="btn-green" id="generateBtn">Generate Associate List</button>
-    </div>
-  </section>
-
-  <!-- ===================== MESSAGE TEMPLATE EDITOR ===================== -->
-  <section class="panel">
-    <div class="panel-head">
-      <h2><span class="step-num">2</span> Message Template</h2>
-      <div style="display:flex; gap:8px;">
-        <button class="btn-secondary btn-small" id="toggleTemplateBtn">Edit</button>
-        <button class="btn-secondary btn-small" id="restoreTemplateBtn">Restore Default</button>
-      </div>
-    </div>
-    <div class="collapse-body hidden" id="templateBody">
-      <textarea id="messageTemplate"></textarea>
-      <p class="hint">
-        Use <code>{name}</code> where the associate's name should appear (e.g. after "Hi").
-        Changes are saved automatically and used for every Teams message.
-      </p>
-      <div class="toolbar">
-        <button class="btn-green btn-small" id="saveTemplateBtn">Save Message</button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ===================== STATS ===================== -->
-  <div class="stats">
-    <div class="stat-box stat-total">
-      <div class="num" id="statTotal">0</div>
-      <div class="label">Total Associates</div>
-    </div>
-    <div class="stat-box stat-completed">
-      <div class="num" id="statCompleted">0</div>
-      <div class="label">Completed</div>
-    </div>
-    <div class="stat-box stat-pending">
-      <div class="num" id="statPending">0</div>
-      <div class="label">Pending</div>
-    </div>
-  </div>
-
-  <!-- ===================== PROGRESS ===================== -->
-  <div class="progress-wrap">
-    <div class="progress-label">
-      <span>Outreach progress</span>
-      <span id="progressPct">0%</span>
-    </div>
-    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-  </div>
-
-  <!-- ===================== SEARCH + RESET ===================== -->
-  <div class="search-row">
-    <input type="text" id="searchBox" placeholder="🔍  Search by name or associate ID..." />
-    <button class="btn-secondary" id="resetBtn">Reset All Status</button>
-  </div>
-
-  <!-- ===================== CARDS ===================== -->
-  <div id="cards" class="cards"></div>
-  <div id="emptyState" class="empty-state">
-    No associates yet. Paste your data above and click <strong>Generate Associate List</strong>.
-  </div>
-
-</div>
-
-<!-- Toast -->
-<div class="toast" id="toast"></div>
-
+ </section>
+ <section class="panel"><div class="panel-head"><h2 class="panel-title"><span class="step">2</span>Personalize the Teams draft</h2><div class="actions"><button class="btn secondary small" id="toggleTemplateBtn">Edit template</button><button class="btn quiet small" id="restoreTemplateBtn">Restore default</button></div></div><div class="hidden" id="templateBody"><textarea id="messageTemplate"></textarea><p class="hint">Use <code>{name}</code>, <code>{id}</code>, and <code>{email}</code>. The template is saved in this browser.</p><div class="toolbar" style="margin-top:13px"><button class="btn primary small" id="saveTemplateBtn">Save template</button></div></div></section>
+ <div class="stats"><div class="stat"><div class="stat-num" id="statTotal">0</div><div class="stat-label">Total associates</div></div><div class="stat done"><div class="stat-num" id="statCompleted">0</div><div class="stat-label">Completed</div></div><div class="stat pending"><div class="stat-num" id="statPending">0</div><div class="stat-label">Pending</div></div></div>
+ <div class="panel progress-panel"><div class="progress-label"><span>Outreach progress</span><strong id="progressPct">0%</strong></div><div class="track"><div class="fill" id="progressFill"></div></div></div>
+ <div class="list-tools"><input id="searchBox" type="text" placeholder="Search by name or ID…"><select id="statusFilter"><option value="all">All statuses</option><option value="pending">Pending</option><option value="completed">Completed</option></select><select id="sortBy"><option value="original">Original order</option><option value="name">Name A–Z</option><option value="id">ID A–Z</option><option value="status">Pending first</option></select></div>
+ <div class="toolbar" style="justify-content:flex-end;margin-bottom:14px"><button class="btn secondary small" id="exportBtn">Export status CSV</button><button class="btn danger small" id="resetBtn">Reset statuses</button></div>
+ <section class="cards" id="cards"></section><div class="empty" id="emptyState"><div class="empty-icon">👥</div><div>Load associate data above to start your outreach.</div></div>
+</main>
+<dialog id="previewDialog"><div class="modal-head"><h2 id="previewTitle">Message preview</h2><button class="btn secondary small" id="closePreviewBtn">✕</button></div><div class="modal-body"><pre class="message-preview" id="messagePreview"></pre></div><div class="modal-actions"><button class="btn secondary" id="copyPreviewBtn">Copy message</button><button class="btn teams" id="launchPreviewBtn">Open in Teams app</button></div></dialog>
+<div class="toast" id="toast" role="status"></div>
 <script>
-/* ================================================================
-   CONFIGURATION & STORAGE KEYS
-   ================================================================ */
-const STORAGE_KEY   = "allyOutreachCompleted";   // completed associate IDs
-const TEMPLATE_KEY  = "allyOutreachTemplate";    // custom message template
-const THEME_KEY     = "allyOutreachTheme";       // "light" | "dark"
-const EMAIL_DOMAIN  = "@cognizant.com";
-
-// Default recruitment message. {name} is replaced with the associate's name.
-const DEFAULT_TEMPLATE = `Hi {name},
+"use strict";
+const K={done:"allyOutreachCompleted",template:"allyOutreachTemplate",theme:"allyOutreachTheme",people:"allyOutreachPeople",url:"allyOutreachSheetUrl"},DOMAIN="@cognizant.com";
+const DEFAULT_TEMPLATE=`Hi {name},
 
 There are openings in the Ally Account for the following roles:
 
@@ -491,258 +69,45 @@ If you have experience in any of the above skills, please share the following de
 Please let me know at your earliest convenience.
 
 Thank you.`;
-
-/* ================================================================
-   STATE
-   ================================================================ */
-let associates = [];                       // [{ id, name }]
-let completedIds = loadCompleted();        // Set of completed IDs
-let messageTemplate = loadTemplate();      // current message template string
-
-/* ================================================================
-   STORAGE HELPERS
-   ================================================================ */
-function loadCompleted() {
-  try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    return new Set(raw ? JSON.parse(raw) : []);
-  } catch (e) { return new Set(); }
-}
-function saveCompleted() {
-  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...completedIds])); } catch (e) {}
-}
-function loadTemplate() {
-  try { return localStorage.getItem(TEMPLATE_KEY) || DEFAULT_TEMPLATE; }
-  catch (e) { return DEFAULT_TEMPLATE; }
-}
-function saveTemplate(text) {
-  messageTemplate = text;
-  try { localStorage.setItem(TEMPLATE_KEY, text); } catch (e) {}
-}
-
-/* ================================================================
-   THEME (DARK MODE)
-   ================================================================ */
-function applyTheme(theme) {
-  const isDark = theme === "dark";
-  document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
-  document.getElementById("themeIcon").textContent = isDark ? "☀️" : "🌙";
-  document.getElementById("themeLabel").textContent = isDark ? "Light" : "Dark";
-  try { localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); } catch (e) {}
-}
-// Initialise theme from storage, else respect OS preference.
-(function initTheme() {
-  let saved;
-  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
-  if (!saved) {
-    saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark" : "light";
-  }
-  applyTheme(saved);
-})();
-document.getElementById("themeToggle").addEventListener("click", () => {
-  const current = document.documentElement.getAttribute("data-theme");
-  applyTheme(current === "dark" ? "light" : "dark");
-});
-
-/* ================================================================
-   PARSING
-   ================================================================ */
-function parseInput(raw) {
-  const result = [];
-  const seen = new Set();
-  const lines = raw.split(/\r?\n/);
-
-  for (const line of lines) {
-    const trimmed = line.trim();
-    if (!trimmed) continue;                          // skip empty lines
-
-    const match = trimmed.match(/^(\S+)\s+(.*)$/);
-    let id, name;
-    if (match) {
-      id = match[1].trim();
-      name = match[2].trim().replace(/\s+/g, " ");   // collapse inner spaces
-    } else {
-      id = trimmed; name = "";
-    }
-
-    if (!id || seen.has(id)) continue;               // ignore duplicates
-    seen.add(id);
-    result.push({ id, name: name || "(No name)" });
-  }
-  return result;
-}
-
-/* ================================================================
-   TEAMS URL BUILDER  (personalized per associate)
-   ================================================================ */
-function buildMessage(name) {
-  // Replace {name} placeholder. If the name is a placeholder, use a neutral fallback.
-  const safeName = (name && name !== "(No name)") ? name : "there";
-  return messageTemplate.replace(/\{name\}/g, safeName);
-}
-function buildTeamsUrl(assoc) {
-  const user = encodeURIComponent(assoc.id + EMAIL_DOMAIN);
-  const message = encodeURIComponent(buildMessage(assoc.name));
-  return `https://teams.microsoft.com/l/chat/0/0?users=${user}&message=${message}`;
-}
-
-/* ================================================================
-   RENDERING
-   ================================================================ */
-const cardsEl     = document.getElementById("cards");
-const emptyStateEl = document.getElementById("emptyState");
-const searchBox   = document.getElementById("searchBox");
-
-// Derive up to two initials for the avatar.
-function initials(name) {
-  if (!name || name === "(No name)") return "?";
-  const parts = name.trim().split(/\s+/);
-  return (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
-}
-
-function render() {
-  const term = searchBox.value.trim().toLowerCase();
-  const visible = associates.filter(a =>
-    a.name.toLowerCase().includes(term) || a.id.toLowerCase().includes(term)
-  );
-
-  if (associates.length === 0) {
-    emptyStateEl.style.display = "block";
-    emptyStateEl.innerHTML =
-      'No associates yet. Paste your data above and click <strong>Generate Associate List</strong>.';
-    cardsEl.innerHTML = "";
-    updateStats();
-    return;
-  }
-
-  if (visible.length === 0) {
-    emptyStateEl.style.display = "block";
-    emptyStateEl.textContent = "No associates match your search.";
-  } else {
-    emptyStateEl.style.display = "none";
-  }
-
-  cardsEl.innerHTML = "";
-  for (const a of visible) {
-    const isDone = completedIds.has(a.id);
-
-    const card = document.createElement("div");
-    card.className = "card";
-    card.innerHTML = `
-      <div class="card-header">
-        <div class="who">
-          <div class="avatar"></div>
-          <div>
-            <div class="name"></div>
-            <div class="id">ID: <span class="id-val"></span></div>
-          </div>
-        </div>
-        <span class="badge ${isDone ? "badge-completed" : "badge-pending"}">
-          ${isDone ? "Completed" : "Pending"}
-        </span>
-      </div>
-      <button class="btn-clickme" ${isDone ? "disabled" : ""}>
-        ${isDone ? "✓ Message Sent" : "Click Me"}
-      </button>
-    `;
-
-    // Set user-supplied text safely (prevents HTML injection).
-    card.querySelector(".avatar").textContent = initials(a.name);
-    card.querySelector(".name").textContent = a.name;
-    card.querySelector(".id-val").textContent = a.id;
-
-    const btn = card.querySelector(".btn-clickme");
-    if (!isDone) btn.addEventListener("click", () => handleSend(a));
-
-    cardsEl.appendChild(card);
-  }
-
-  updateStats();
-}
-
-function updateStats() {
-  const total = associates.length;
-  const completed = associates.filter(a => completedIds.has(a.id)).length;
-  const pending = total - completed;
-
-  document.getElementById("statTotal").textContent = total;
-  document.getElementById("statCompleted").textContent = completed;
-  document.getElementById("statPending").textContent = pending;
-
-  const pct = total ? Math.round((completed / total) * 100) : 0;
-  document.getElementById("progressFill").style.width = pct + "%";
-  document.getElementById("progressPct").textContent = pct + "%";
-}
-
-/* ================================================================
-   TOAST
-   ================================================================ */
-let toastTimer;
-function showToast(msg) {
-  const t = document.getElementById("toast");
-  t.textContent = msg;
-  t.classList.add("show");
-  clearTimeout(toastTimer);
-  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
-}
-
-/* ================================================================
-   ACTIONS
-   ================================================================ */
-function handleSend(assoc) {
-  window.open(buildTeamsUrl(assoc), "_blank");   // open Teams chat
-  completedIds.add(assoc.id);                    // mark completed
-  saveCompleted();                               // persist
-  render();
-  showToast(`Message opened for ${assoc.name}`);
-}
-
-document.getElementById("generateBtn").addEventListener("click", () => {
-  associates = parseInput(document.getElementById("inputData").value);
-  render();
-  showToast(`${associates.length} associate(s) loaded`);
-});
-
-document.getElementById("resetBtn").addEventListener("click", () => {
-  if (completedIds.size === 0) return;
-  if (!confirm("Reset all associate statuses back to Pending?")) return;
-  completedIds.clear();
-  saveCompleted();
-  render();
-  showToast("All statuses reset to Pending");
-});
-
-searchBox.addEventListener("input", render);
-
-/* ================================================================
-   MESSAGE TEMPLATE EDITOR
-   ================================================================ */
-const templateBody = document.getElementById("templateBody");
-const templateArea = document.getElementById("messageTemplate");
-templateArea.value = messageTemplate;   // load current template into the editor
-
-document.getElementById("toggleTemplateBtn").addEventListener("click", (e) => {
-  templateBody.classList.toggle("hidden");
-  e.target.textContent = templateBody.classList.contains("hidden") ? "Edit" : "Hide";
-});
-
-document.getElementById("saveTemplateBtn").addEventListener("click", () => {
-  saveTemplate(templateArea.value);
-  showToast("Message template saved");
-});
-
-document.getElementById("restoreTemplateBtn").addEventListener("click", () => {
-  if (!confirm("Restore the default message template?")) return;
-  saveTemplate(DEFAULT_TEMPLATE);
-  templateArea.value = DEFAULT_TEMPLATE;
-  showToast("Default message restored");
-});
-
-/* ================================================================
-   INITIAL RENDER
-   ================================================================ */
-render();
+const $=id=>document.getElementById(id),read=(key,fallback)=>{try{const v=localStorage.getItem(key);return v?JSON.parse(v):fallback}catch{return fallback}},write=(key,v)=>{try{localStorage.setItem(key,JSON.stringify(v))}catch{}};
+let associates=read(K.people,[]),completed=new Set(read(K.done,[])),template=(()=>{try{return localStorage.getItem(K.template)||DEFAULT_TEMPLATE}catch{return DEFAULT_TEMPLATE}})(),sheet={headers:[],rows:[]},filters=[],selected=null,timer;
+const email=id=>String(id||"").trim().includes("@")?String(id).trim():String(id||"").trim()+DOMAIN;
+function message(p){const n=p.name&&p.name!=="(No name)"?p.name:"there";return template.replace(/\{name\}/gi,n).replace(/\{id\}/gi,p.id).replace(/\{email\}/gi,email(p.id))}
+function teamsUrl(p){return `msteams:/l/chat/0/0?users=${encodeURIComponent(email(p.id))}&message=${encodeURIComponent(message(p))}`}
+function toast(msg,error=false){$("toast").textContent=msg;$("toast").classList.toggle("error",error);$("toast").classList.add("show");clearTimeout(timer);timer=setTimeout(()=>$("toast").classList.remove("show"),3000)}
+function applyTheme(t){const d=t==="dark";document.documentElement.dataset.theme=d?"dark":"light";$("themeIcon").textContent=d?"☀️":"🌙";$("themeLabel").textContent=d?"Light":"Dark";try{localStorage.setItem(K.theme,d?"dark":"light")}catch{}}
+let savedTheme;try{savedTheme=localStorage.getItem(K.theme)}catch{}applyTheme(savedTheme||(matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light"));$("themeToggle").onclick=()=>applyTheme(document.documentElement.dataset.theme==="dark"?"light":"dark");
+function manual(raw){const seen=new Set;return raw.split(/\r?\n/).map(line=>{const m=line.trim().match(/^(\S+)(?:\s+(.+))?$/);return m?{id:m[1].trim(),name:(m[2]||"(No name)").trim().replace(/\s+/g," ")}:null}).filter(p=>p&&!seen.has(p.id.toLowerCase())&&seen.add(p.id.toLowerCase()))}
+function initials(n){if(!n||n==="(No name)")return"?";const w=n.trim().split(/\s+/);return(w[0][0]+(w[1]?.[0]||"")).toUpperCase()}
+function stats(){const total=associates.length,done=associates.filter(p=>completed.has(p.id)).length,pct=total?Math.round(done*100/total):0;$("statTotal").textContent=total;$("statCompleted").textContent=done;$("statPending").textContent=total-done;$("progressPct").textContent=pct+"%";$("progressFill").style.width=pct+"%";$("sourceSummary").textContent=total?`${total} associate${total===1?"":"s"} loaded`:"No data loaded"}
+function visible(){const term=$("searchBox").value.trim().toLowerCase(),status=$("statusFilter").value;let rows=associates.filter(p=>(p.name.toLowerCase().includes(term)||p.id.toLowerCase().includes(term))&&(status==="all"||(status==="completed"?completed.has(p.id):!completed.has(p.id))));const sort=$("sortBy").value;if(sort==="name")rows.sort((a,b)=>a.name.localeCompare(b.name));if(sort==="id")rows.sort((a,b)=>a.id.localeCompare(b.id,undefined,{numeric:true}));if(sort==="status")rows.sort((a,b)=>Number(completed.has(a.id))-Number(completed.has(b.id)));return rows}
+function render(){const box=$("cards"),rows=visible();box.replaceChildren();$("emptyState").classList.toggle("hidden",rows.length>0);$("emptyState").lastElementChild.textContent=associates.length?"No associates match the current filters.":"Load associate data above to start your outreach.";rows.forEach((p,i)=>{const done=completed.has(p.id),card=document.createElement("article");card.className="card";card.style.animationDelay=Math.min(i*35,280)+"ms";card.innerHTML=`<div class="card-head"><div class="person"><div class="avatar"></div><div style="min-width:0"><div class="person-name"></div><div class="person-id"></div></div></div><span class="badge ${done?"badge-done":"badge-pending"}">${done?"Completed":"Pending"}</span></div><div class="card-actions"><button class="btn teams">${done?"Open draft again":"Open Teams draft"}</button><button class="btn secondary small preview">Preview</button><button class="btn secondary small copy">Copy</button></div>`;card.querySelector(".avatar").textContent=initials(p.name);card.querySelector(".person-name").textContent=p.name;card.querySelector(".person-id").textContent=p.id+" · "+email(p.id);card.querySelector(".teams").onclick=()=>launch(p);card.querySelector(".preview").onclick=()=>preview(p);card.querySelector(".copy").onclick=()=>copy(p);box.append(card)});stats()}
+function launch(p){completed.add(p.id);write(K.done,[...completed]);render();toast("Launching the Teams desktop draft for "+p.name);window.location.href=teamsUrl(p)}
+async function copy(p){try{await navigator.clipboard.writeText(message(p));toast("Message copied for "+p.name)}catch{toast("Clipboard access was blocked",true)}}
+function preview(p){selected=p;$("previewTitle").textContent="Draft for "+p.name;$("messagePreview").textContent=message(p);$("previewDialog").showModal()}
+$("generateBtn").onclick=()=>{associates=manual($("inputData").value);write(K.people,associates);render();toast(associates.length+" associate"+(associates.length===1?"":"s")+" loaded")};
+["searchBox","statusFilter","sortBy"].forEach(id=>$(id).addEventListener(id==="searchBox"?"input":"change",render));
+document.querySelectorAll(".tab").forEach(tab=>tab.onclick=()=>{document.querySelectorAll(".tab").forEach(t=>t.classList.toggle("active",t===tab));document.querySelectorAll(".source-pane").forEach(p=>p.classList.toggle("hidden",p.id!==tab.dataset.pane))});
+function normalizeUrl(value){const u=new URL(value.trim());if(u.hostname==="docs.google.com"&&u.pathname.includes("/spreadsheets/")){const id=u.pathname.match(/\/d\/([^/]+)/)?.[1];if(!id)throw Error("This Google Sheets URL is not recognized.");const gid=u.searchParams.get("gid")||u.hash.match(/gid=(\d+)/)?.[1]||"0";return`https://docs.google.com/spreadsheets/d/${id}/export?format=csv&gid=${gid}`}if(!/^https?:$/.test(u.protocol))throw Error("Only HTTP or HTTPS links are supported.");return u.href}
+function parseCsv(text){text=text.replace(/^\uFEFF/,"");const first=text.split(/\r?\n/,1)[0],delim=(first.match(/\t/g)||[]).length>(first.match(/,/g)||[]).length?"\t":",",out=[];let row=[],field="",quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(quoted){if(c==='"'&&text[i+1]==='"'){field+='"';i++}else if(c==='"')quoted=false;else field+=c}else if(c==='"')quoted=true;else if(c===delim){row.push(field);field=""}else if(c==="\n"){row.push(field.replace(/\r$/,""));out.push(row);row=[];field=""}else field+=c}if(field.length||row.length){row.push(field.replace(/\r$/,""));out.push(row)}return out.filter(r=>r.some(v=>v.trim()))}
+function headers(values){const used=new Map;return values.map((v,i)=>{const base=v.trim()||"Column "+(i+1),count=(used.get(base.toLowerCase())||0)+1;used.set(base.toLowerCase(),count);return count===1?base:base+" ("+count+")"})}
+function fillSelect(el,chosen=0){el.replaceChildren(...sheet.headers.map((h,i)=>new Option(h,String(i),false,i===chosen)))}
+function guess(patterns,fallback){const i=sheet.headers.findIndex(h=>patterns.some(p=>p.test(h)));return i>=0?i:fallback}
+function matches(row){return filters.every(f=>{const cell=String(row[f.column]??"").trim().toLowerCase(),value=f.value.trim().toLowerCase();if(f.operator==="equals")return cell===value;if(f.operator==="not_equals")return cell!==value;if(f.operator==="starts")return cell.startsWith(value);if(f.operator==="not_empty")return cell!=="";if(f.operator==="empty")return cell==="";return cell.includes(value)})}
+const filtered=()=>sheet.rows.filter(matches);
+function filterChips(){const box=$("filterChips");box.replaceChildren();filters.forEach((f,i)=>{const chip=document.createElement("span"),label=document.createElement("span"),remove=document.createElement("button"),op=$("filterOperator").querySelector(`option[value="${f.operator}"]`)?.textContent||f.operator;chip.className="chip";label.textContent=sheet.headers[f.column]+" "+op+(["empty","not_empty"].includes(f.operator)?"":` “${f.value}”`);remove.textContent="×";remove.title="Remove filter";remove.onclick=()=>{filters.splice(i,1);filterChips();sheetPreview()};chip.append(label,remove);box.append(chip)})}
+function sheetPreview(){const rows=filtered(),table=$("sheetPreview"),head=document.createElement("thead"),hr=document.createElement("tr"),body=document.createElement("tbody");$("sheetMeta").textContent=rows.length+" of "+sheet.rows.length+" rows match";table.replaceChildren();sheet.headers.forEach(h=>{const th=document.createElement("th");th.textContent=h;hr.append(th)});head.append(hr);rows.slice(0,6).forEach(row=>{const tr=document.createElement("tr");sheet.headers.forEach((_,i)=>{const td=document.createElement("td");td.textContent=row[i]??"";td.title=row[i]??"";tr.append(td)});body.append(tr)});table.append(head,body)}
+$("loadSheetBtn").onclick=async()=>{const b=$("loadSheetBtn");try{const original=$("sheetUrl").value,url=normalizeUrl(original);b.disabled=true;b.textContent="Fetching…";const response=await fetch(url,{headers:{Accept:"text/csv,text/plain,*/*"}});if(!response.ok)throw Error("The sheet returned "+response.status+". Check its sharing settings.");const text=await response.text();if(/<!doctype html|<html/i.test(text.slice(0,500)))throw Error("The link returned a web page instead of CSV. Make the sheet publicly viewable.");const matrix=parseCsv(text);if(matrix.length<2)throw Error("No data rows were found.");const hs=headers(matrix[0]);sheet={headers:hs,rows:matrix.slice(1).map(r=>Array.from({length:hs.length},(_,i)=>r[i]??""))};filters=[];fillSelect($("idColumn"),guess([/associate.*id/i,/employee.*id/i,/^id$/i,/email/i],0));fillSelect($("nameColumn"),guess([/associate.*name/i,/employee.*name/i,/^name$/i],Math.min(1,hs.length-1)));fillSelect($("filterColumn"));$("mappingBox").classList.remove("hidden");try{localStorage.setItem(K.url,original)}catch{}filterChips();sheetPreview();toast(sheet.rows.length+" sheet rows fetched")}catch(e){toast(e.message||"Could not fetch the sheet",true)}finally{b.disabled=false;b.textContent="Fetch sheet"}};
+$("filterOperator").onchange=()=>$("filterValue").classList.toggle("hidden",["empty","not_empty"].includes($("filterOperator").value));
+$("addFilterBtn").onclick=()=>{const operator=$("filterOperator").value,value=$("filterValue").value;if(!["empty","not_empty"].includes(operator)&&!value.trim())return toast("Enter a filter value",true);filters.push({column:Number($("filterColumn").value),operator,value});$("filterValue").value="";filterChips();sheetPreview()};
+$("clearFiltersBtn").onclick=()=>{filters=[];filterChips();sheetPreview()};
+$("importSheetBtn").onclick=()=>{const id=Number($("idColumn").value),name=Number($("nameColumn").value),seen=new Set;associates=filtered().map(r=>({id:String(r[id]||"").trim(),name:String(r[name]||"(No name)").trim()||"(No name)"})).filter(p=>p.id&&!seen.has(p.id.toLowerCase())&&seen.add(p.id.toLowerCase()));write(K.people,associates);render();toast(associates.length+" filtered associates imported");document.querySelector(".stats").scrollIntoView({behavior:"smooth",block:"center"})};
+$("messageTemplate").value=template;$("toggleTemplateBtn").onclick=()=>{const hidden=$("templateBody").classList.toggle("hidden");$("toggleTemplateBtn").textContent=hidden?"Edit template":"Hide editor"};$("saveTemplateBtn").onclick=()=>{template=$("messageTemplate").value||DEFAULT_TEMPLATE;try{localStorage.setItem(K.template,template)}catch{}toast("Message template saved")};$("restoreTemplateBtn").onclick=()=>{if(!confirm("Restore the default Teams message?"))return;template=DEFAULT_TEMPLATE;$("messageTemplate").value=template;try{localStorage.setItem(K.template,template)}catch{}toast("Default message restored")};
+$("resetBtn").onclick=()=>{if(!completed.size||!confirm("Reset all associates to Pending?"))return;completed.clear();write(K.done,[]);render();toast("All statuses reset")};
+function csvCell(v){let t=String(v??"");if(/^[=+\-@]/.test(t))t="'"+t;return '"'+t.replace(/"/g,'""')+'"'}
+$("exportBtn").onclick=()=>{if(!associates.length)return toast("Load associates before exporting",true);const lines=["Associate ID,Name,Email,Status",...associates.map(p=>[p.id,p.name,email(p.id),completed.has(p.id)?"Completed":"Pending"].map(csvCell).join(","))],blob=new Blob(["\uFEFF"+lines.join("\r\n")],{type:"text/csv;charset=utf-8"}),a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="ally-outreach-"+new Date().toISOString().slice(0,10)+".csv";a.click();setTimeout(()=>URL.revokeObjectURL(a.href),1000);toast("Status CSV exported")};
+$("closePreviewBtn").onclick=()=>$("previewDialog").close();$("previewDialog").onclick=e=>{if(e.target===$("previewDialog"))$("previewDialog").close()};$("copyPreviewBtn").onclick=()=>selected&&copy(selected);$("launchPreviewBtn").onclick=()=>{if(selected){$("previewDialog").close();launch(selected)}};
+try{$("sheetUrl").value=localStorage.getItem(K.url)||""}catch{}render();
 </script>
 </body>
 </html>
