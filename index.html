@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Ally Account Hiring Outreach</title>
+<style>
+  /* ============================================================
+     THEME VARIABLES — light (default) + dark mode
+     ============================================================ */
+  :root {
+    --bg: #eef1f6;
+    --bg-gradient: linear-gradient(180deg, #eef1f6 0%, #e6eaf1 100%);
+    --card-bg: #ffffff;
+    --panel-bg: #ffffff;
+    --text: #1f2933;
+    --text-muted: #6b7280;
+    --border: #e4e7eb;
+    --input-bg: #fbfcfe;
+    --green: #16a34a;
+    --green-dark: #15803d;
+    --green-light: #d1fae5;
+    --green-light-hover: #a7f3d0;
+    --green-light-text: #15803d;
+    --orange: #d97706;
+    --orange-bg: #fff3e0;
+    --accent: #2563eb;
+    --shadow: 0 1px 3px rgba(16,24,40,0.06), 0 6px 16px rgba(16,24,40,0.06);
+    --shadow-hover: 0 10px 28px rgba(16,24,40,0.14);
+    --radius: 16px;
+  }
+
+  /* Dark theme overrides — applied when <html data-theme="dark"> */
+  html[data-theme="dark"] {
+    --bg: #0f141b;
+    --bg-gradient: linear-gradient(180deg, #0f141b 0%, #12181f 100%);
+    --card-bg: #1a212b;
+    --panel-bg: #1a212b;
+    --text: #e5e9f0;
+    --text-muted: #9aa4b2;
+    --border: #2a333f;
+    --input-bg: #141a22;
+    --green: #22c55e;
+    --green-dark: #16a34a;
+    --green-light: #14352169;
+    --green-light-hover: #1b4a2c;
+    --green-light-text: #4ade80;
+    --orange: #fbbf24;
+    --orange-bg: #3a2c0f;
+    --accent: #60a5fa;
+    --shadow: 0 1px 3px rgba(0,0,0,0.4), 0 6px 18px rgba(0,0,0,0.35);
+    --shadow-hover: 0 12px 30px rgba(0,0,0,0.5);
+  }
+
+  /* ============================================================
+     BASE RESET
+     ============================================================ */
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: "Segoe UI", system-ui, -apple-system, Arial, sans-serif;
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text);
+    line-height: 1.55;
+    padding: 0 16px 60px;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+
+  .container { max-width: 1140px; margin: 0 auto; }
+
+  /* ============================================================
+     TOP BAR (brand + theme toggle)
+     ============================================================ */
+  .topbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0 14px;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .brand .logo {
+    width: 42px; height: 42px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--green) 0%, #0ea5e9 100%);
+    display: flex; align-items: center; justify-content: center;
+    color: #fff; font-weight: 800; font-size: 1.2rem;
+    box-shadow: 0 4px 12px rgba(22,163,74,0.35);
+  }
+  .brand .brand-text .title {
+    font-size: 1.25rem; font-weight: 700; letter-spacing: -0.01em;
+  }
+  .brand .brand-text .subtitle {
+    font-size: 0.82rem; color: var(--text-muted);
+  }
+
+  /* Theme toggle switch */
+  .theme-toggle {
+    display: flex; align-items: center; gap: 8px;
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.85rem; font-weight: 600;
+    color: var(--text-muted);
+    box-shadow: var(--shadow);
+    transition: box-shadow 0.2s, transform 0.12s;
+  }
+  .theme-toggle:hover { box-shadow: var(--shadow-hover); }
+  .theme-toggle:active { transform: scale(0.97); }
+
+  /* ============================================================
+     HERO HEADER
+     ============================================================ */
+  header {
+    text-align: center;
+    margin: 8px 0 30px;
+  }
+  header h1 {
+    font-size: 2rem;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    background: linear-gradient(135deg, var(--text) 0%, var(--green-dark) 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  html[data-theme="dark"] header h1 {
+    background: linear-gradient(135deg, #e5e9f0 0%, #4ade80 120%);
+    -webkit-background-clip: text;
+    background-clip: text;
+  }
+  header p {
+    color: var(--text-muted);
+    margin-top: 6px;
+    font-size: 0.98rem;
+  }
+
+  /* ============================================================
+     PANELS
+     ============================================================ */
+  .panel {
+    background: var(--panel-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 24px;
+    margin-bottom: 24px;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .panel-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 12px; margin-bottom: 14px; flex-wrap: wrap;
+  }
+  .panel h2 {
+    font-size: 1.05rem; font-weight: 700;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .step-num {
+    display: inline-flex; align-items: center; justify-content: center;
+    width: 24px; height: 24px; border-radius: 7px;
+    background: var(--green); color: #fff;
+    font-size: 0.8rem; font-weight: 700;
+  }
+
+  /* Collapsible template body */
+  .collapse-body { margin-top: 14px; }
+  .collapse-body.hidden { display: none; }
+
+  /* ============================================================
+     INPUTS
+     ============================================================ */
+  textarea, input[type="text"] {
+    width: 100%;
+    padding: 13px 14px;
+    border: 1px solid var(--border);
+    border-radius: 11px;
+    font-size: 0.92rem;
+    color: var(--text);
+    background: var(--input-bg);
+    transition: border-color 0.2s, box-shadow 0.2s, background 0.3s;
+  }
+  textarea {
+    min-height: 170px; resize: vertical;
+    font-family: "Consolas", "Courier New", monospace;
+  }
+  #messageTemplate { min-height: 260px; }
+  textarea:focus, input[type="text"]:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(22,163,74,0.18);
+  }
+
+  .hint {
+    font-size: 0.82rem; color: var(--text-muted); margin-top: 8px;
+  }
+  .hint code {
+    background: var(--input-bg);
+    border: 1px solid var(--border);
+    padding: 1px 6px; border-radius: 6px;
+    font-size: 0.8rem;
+  }
+
+  /* ============================================================
+     BUTTONS
+     ============================================================ */
+  button {
+    cursor: pointer; border: none; border-radius: 11px;
+    font-size: 0.9rem; font-weight: 600; padding: 11px 20px;
+    transition: transform 0.12s ease, background 0.2s ease, box-shadow 0.2s ease, color 0.2s;
+  }
+  button:active { transform: scale(0.97); }
+
+  .btn-green { background: var(--green); color: #fff; }
+  .btn-green:hover { background: var(--green-dark); box-shadow: 0 4px 14px rgba(22,163,74,0.35); }
+
+  .btn-secondary {
+    background: var(--panel-bg); color: var(--text);
+    border: 1px solid var(--border);
+  }
+  .btn-secondary:hover { box-shadow: var(--shadow); }
+
+  .btn-small { padding: 7px 14px; font-size: 0.82rem; }
+
+  .btn-clickme {
+    background: var(--green-light); color: var(--green-light-text);
+    width: 100%; margin-top: 16px;
+    border: 1px solid transparent;
+  }
+  html[data-theme="dark"] .btn-clickme { border-color: var(--border); }
+  .btn-clickme:hover { background: var(--green-light-hover); box-shadow: 0 4px 14px rgba(16,185,129,0.25); }
+  .btn-clickme:disabled { opacity: 0.65; cursor: not-allowed; }
+
+  .toolbar { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+  /* ============================================================
+     STATS
+     ============================================================ */
+  .stats { display: flex; flex-wrap: wrap; gap: 14px; margin-bottom: 24px; }
+  .stat-box {
+    flex: 1 1 150px;
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 18px;
+    text-align: center;
+    position: relative; overflow: hidden;
+    transition: background 0.3s, border-color 0.3s;
+  }
+  .stat-box::before {
+    content: ""; position: absolute; top: 0; left: 0; width: 4px; height: 100%;
+  }
+  .stat-total::before { background: var(--accent); }
+  .stat-completed::before { background: var(--green); }
+  .stat-pending::before { background: var(--orange); }
+  .stat-box .num { font-size: 1.8rem; font-weight: 800; }
+  .stat-box .label {
+    font-size: 0.76rem; color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.05em; margin-top: 2px;
+  }
+  .stat-completed .num { color: var(--green); }
+  .stat-pending .num { color: var(--orange); }
+
+  /* Progress bar */
+  .progress-wrap {
+    margin-bottom: 24px; background: var(--card-bg);
+    border: 1px solid var(--border); border-radius: var(--radius);
+    box-shadow: var(--shadow); padding: 16px 18px;
+  }
+  .progress-label {
+    display: flex; justify-content: space-between;
+    font-size: 0.82rem; color: var(--text-muted); margin-bottom: 8px;
+  }
+  .progress-track {
+    height: 10px; border-radius: 999px;
+    background: var(--input-bg); overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--green) 0%, #0ea5e9 100%);
+    border-radius: 999px; transition: width 0.4s ease;
+  }
+
+  /* ============================================================
+     SEARCH
+     ============================================================ */
+  .search-row { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap; }
+  .search-row input { flex: 1 1 260px; }
+
+  /* ============================================================
+     CARDS
+     ============================================================ */
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 18px;
+  }
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    padding: 20px;
+    display: flex; flex-direction: column;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.3s, border-color 0.3s;
+  }
+  .card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
+  .card-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .card .avatar {
+    width: 40px; height: 40px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--green) 0%, #0ea5e9 100%);
+    color: #fff; font-weight: 700; font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .card .who { display: flex; align-items: center; gap: 12px; }
+  .card .name { font-size: 1.05rem; font-weight: 700; }
+  .card .id { font-size: 0.83rem; color: var(--text-muted); margin-top: 2px; }
+
+  .badge {
+    font-size: 0.7rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.04em; padding: 5px 11px; border-radius: 999px; white-space: nowrap;
+  }
+  .badge-pending { background: var(--orange-bg); color: var(--orange); }
+  .badge-completed { background: var(--green-light); color: var(--green-light-text); }
+
+  .empty-state {
+    text-align: center; color: var(--text-muted);
+    padding: 44px 20px; font-size: 0.95rem;
+  }
+
+  /* ============================================================
+     TOAST NOTIFICATION
+     ============================================================ */
+  .toast {
+    position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(120%);
+    background: var(--green-dark); color: #fff;
+    padding: 12px 22px; border-radius: 12px;
+    box-shadow: var(--shadow-hover); font-size: 0.9rem; font-weight: 600;
+    opacity: 0; transition: transform 0.35s ease, opacity 0.35s ease; z-index: 1000;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+  /* ============================================================
+     RESPONSIVE
+     ============================================================ */
+  @media (max-width: 600px) {
+    header h1 { font-size: 1.55rem; }
+    .stat-box { flex: 1 1 45%; }
+    .panel { padding: 18px; }
+    .brand .brand-text .subtitle { display: none; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- ===================== TOP BAR ===================== -->
+  <div class="topbar">
+    <div class="brand">
+      <div class="logo">A</div>
+      <div class="brand-text">
+        <div class="title">Ally Account</div>
+        <div class="subtitle">Recruitment Outreach Portal</div>
+      </div>
+    </div>
+    <button class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+      <span id="themeIcon">🌙</span><span id="themeLabel">Dark</span>
+    </button>
+  </div>
+
+  <!-- ===================== HERO ===================== -->
+  <header>
+    <h1>Ally Account Hiring Outreach</h1>
+    <p>Send personalized Microsoft Teams recruitment messages to associates in one click.</p>
+  </header>
+
+  <!-- ===================== INPUT SECTION ===================== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="step-num">1</span> Paste Associate Data</h2>
+    </div>
+    <textarea id="inputData" placeholder="891186    Soumi Das
+2219451   Adaka Kusumanjali
+2483594   Sanjeevi Venugopal
+457947    Arun Vincent"></textarea>
+    <p class="hint">
+      Format per line: <strong>Associate ID</strong> (first value) then the
+      <strong>Associate Name</strong>. Duplicate IDs and empty lines are ignored automatically.
+    </p>
+    <div class="toolbar">
+      <button class="btn-green" id="generateBtn">Generate Associate List</button>
+    </div>
+  </section>
+
+  <!-- ===================== MESSAGE TEMPLATE EDITOR ===================== -->
+  <section class="panel">
+    <div class="panel-head">
+      <h2><span class="step-num">2</span> Message Template</h2>
+      <div style="display:flex; gap:8px;">
+        <button class="btn-secondary btn-small" id="toggleTemplateBtn">Edit</button>
+        <button class="btn-secondary btn-small" id="restoreTemplateBtn">Restore Default</button>
+      </div>
+    </div>
+    <div class="collapse-body hidden" id="templateBody">
+      <textarea id="messageTemplate"></textarea>
+      <p class="hint">
+        Use <code>{name}</code> where the associate's name should appear (e.g. after "Hi").
+        Changes are saved automatically and used for every Teams message.
+      </p>
+      <div class="toolbar">
+        <button class="btn-green btn-small" id="saveTemplateBtn">Save Message</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== STATS ===================== -->
+  <div class="stats">
+    <div class="stat-box stat-total">
+      <div class="num" id="statTotal">0</div>
+      <div class="label">Total Associates</div>
+    </div>
+    <div class="stat-box stat-completed">
+      <div class="num" id="statCompleted">0</div>
+      <div class="label">Completed</div>
+    </div>
+    <div class="stat-box stat-pending">
+      <div class="num" id="statPending">0</div>
+      <div class="label">Pending</div>
+    </div>
+  </div>
+
+  <!-- ===================== PROGRESS ===================== -->
+  <div class="progress-wrap">
+    <div class="progress-label">
+      <span>Outreach progress</span>
+      <span id="progressPct">0%</span>
+    </div>
+    <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+  </div>
+
+  <!-- ===================== SEARCH + RESET ===================== -->
+  <div class="search-row">
+    <input type="text" id="searchBox" placeholder="🔍  Search by name or associate ID..." />
+    <button class="btn-secondary" id="resetBtn">Reset All Status</button>
+  </div>
+
+  <!-- ===================== CARDS ===================== -->
+  <div id="cards" class="cards"></div>
+  <div id="emptyState" class="empty-state">
+    No associates yet. Paste your data above and click <strong>Generate Associate List</strong>.
+  </div>
+
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<script>
+/* ================================================================
+   CONFIGURATION & STORAGE KEYS
+   ================================================================ */
+const STORAGE_KEY   = "allyOutreachCompleted";   // completed associate IDs
+const TEMPLATE_KEY  = "allyOutreachTemplate";    // custom message template
+const THEME_KEY     = "allyOutreachTheme";       // "light" | "dark"
+const EMAIL_DOMAIN  = "@cognizant.com";
+
+// Default recruitment message. {name} is replaced with the associate's name.
+const DEFAULT_TEMPLATE = `Hi {name},
+
+There are openings in the Ally Account for the following roles:
+
+• Mobile Testing with Automation Framework
+• Selenium Testing
+• Python Automation
+• Cypress Automation
+• Playwright Automation
+
+If you have experience in any of the above skills, please share the following details:
+
+• Total years of experience
+• Relevant experience in the specific skill
+• Automation/testing tools used
+• Testing skills and technologies you have worked on
+
+Please let me know at your earliest convenience.
+
+Thank you.`;
+
+/* ================================================================
+   STATE
+   ================================================================ */
+let associates = [];                       // [{ id, name }]
+let completedIds = loadCompleted();        // Set of completed IDs
+let messageTemplate = loadTemplate();      // current message template string
+
+/* ================================================================
+   STORAGE HELPERS
+   ================================================================ */
+function loadCompleted() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    return new Set(raw ? JSON.parse(raw) : []);
+  } catch (e) { return new Set(); }
+}
+function saveCompleted() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...completedIds])); } catch (e) {}
+}
+function loadTemplate() {
+  try { return localStorage.getItem(TEMPLATE_KEY) || DEFAULT_TEMPLATE; }
+  catch (e) { return DEFAULT_TEMPLATE; }
+}
+function saveTemplate(text) {
+  messageTemplate = text;
+  try { localStorage.setItem(TEMPLATE_KEY, text); } catch (e) {}
+}
+
+/* ================================================================
+   THEME (DARK MODE)
+   ================================================================ */
+function applyTheme(theme) {
+  const isDark = theme === "dark";
+  document.documentElement.setAttribute("data-theme", isDark ? "dark" : "light");
+  document.getElementById("themeIcon").textContent = isDark ? "☀️" : "🌙";
+  document.getElementById("themeLabel").textContent = isDark ? "Light" : "Dark";
+  try { localStorage.setItem(THEME_KEY, isDark ? "dark" : "light"); } catch (e) {}
+}
+// Initialise theme from storage, else respect OS preference.
+(function initTheme() {
+  let saved;
+  try { saved = localStorage.getItem(THEME_KEY); } catch (e) {}
+  if (!saved) {
+    saved = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark" : "light";
+  }
+  applyTheme(saved);
+})();
+document.getElementById("themeToggle").addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme");
+  applyTheme(current === "dark" ? "light" : "dark");
+});
+
+/* ================================================================
+   PARSING
+   ================================================================ */
+function parseInput(raw) {
+  const result = [];
+  const seen = new Set();
+  const lines = raw.split(/\r?\n/);
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed) continue;                          // skip empty lines
+
+    const match = trimmed.match(/^(\S+)\s+(.*)$/);
+    let id, name;
+    if (match) {
+      id = match[1].trim();
+      name = match[2].trim().replace(/\s+/g, " ");   // collapse inner spaces
+    } else {
+      id = trimmed; name = "";
+    }
+
+    if (!id || seen.has(id)) continue;               // ignore duplicates
+    seen.add(id);
+    result.push({ id, name: name || "(No name)" });
+  }
+  return result;
+}
+
+/* ================================================================
+   TEAMS URL BUILDER  (personalized per associate)
+   ================================================================ */
+function buildMessage(name) {
+  // Replace {name} placeholder. If the name is a placeholder, use a neutral fallback.
+  const safeName = (name && name !== "(No name)") ? name : "there";
+  return messageTemplate.replace(/\{name\}/g, safeName);
+}
+function buildTeamsUrl(assoc) {
+  const user = encodeURIComponent(assoc.id + EMAIL_DOMAIN);
+  const message = encodeURIComponent(buildMessage(assoc.name));
+  return `https://teams.microsoft.com/l/chat/0/0?users=${user}&message=${message}`;
+}
+
+/* ================================================================
+   RENDERING
+   ================================================================ */
+const cardsEl     = document.getElementById("cards");
+const emptyStateEl = document.getElementById("emptyState");
+const searchBox   = document.getElementById("searchBox");
+
+// Derive up to two initials for the avatar.
+function initials(name) {
+  if (!name || name === "(No name)") return "?";
+  const parts = name.trim().split(/\s+/);
+  return (parts[0][0] + (parts[1] ? parts[1][0] : "")).toUpperCase();
+}
+
+function render() {
+  const term = searchBox.value.trim().toLowerCase();
+  const visible = associates.filter(a =>
+    a.name.toLowerCase().includes(term) || a.id.toLowerCase().includes(term)
+  );
+
+  if (associates.length === 0) {
+    emptyStateEl.style.display = "block";
+    emptyStateEl.innerHTML =
+      'No associates yet. Paste your data above and click <strong>Generate Associate List</strong>.';
+    cardsEl.innerHTML = "";
+    updateStats();
+    return;
+  }
+
+  if (visible.length === 0) {
+    emptyStateEl.style.display = "block";
+    emptyStateEl.textContent = "No associates match your search.";
+  } else {
+    emptyStateEl.style.display = "none";
+  }
+
+  cardsEl.innerHTML = "";
+  for (const a of visible) {
+    const isDone = completedIds.has(a.id);
+
+    const card = document.createElement("div");
+    card.className = "card";
+    card.innerHTML = `
+      <div class="card-header">
+        <div class="who">
+          <div class="avatar"></div>
+          <div>
+            <div class="name"></div>
+            <div class="id">ID: <span class="id-val"></span></div>
+          </div>
+        </div>
+        <span class="badge ${isDone ? "badge-completed" : "badge-pending"}">
+          ${isDone ? "Completed" : "Pending"}
+        </span>
+      </div>
+      <button class="btn-clickme" ${isDone ? "disabled" : ""}>
+        ${isDone ? "✓ Message Sent" : "Click Me"}
+      </button>
+    `;
+
+    // Set user-supplied text safely (prevents HTML injection).
+    card.querySelector(".avatar").textContent = initials(a.name);
+    card.querySelector(".name").textContent = a.name;
+    card.querySelector(".id-val").textContent = a.id;
+
+    const btn = card.querySelector(".btn-clickme");
+    if (!isDone) btn.addEventListener("click", () => handleSend(a));
+
+    cardsEl.appendChild(card);
+  }
+
+  updateStats();
+}
+
+function updateStats() {
+  const total = associates.length;
+  const completed = associates.filter(a => completedIds.has(a.id)).length;
+  const pending = total - completed;
+
+  document.getElementById("statTotal").textContent = total;
+  document.getElementById("statCompleted").textContent = completed;
+  document.getElementById("statPending").textContent = pending;
+
+  const pct = total ? Math.round((completed / total) * 100) : 0;
+  document.getElementById("progressFill").style.width = pct + "%";
+  document.getElementById("progressPct").textContent = pct + "%";
+}
+
+/* ================================================================
+   TOAST
+   ================================================================ */
+let toastTimer;
+function showToast(msg) {
+  const t = document.getElementById("toast");
+  t.textContent = msg;
+  t.classList.add("show");
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => t.classList.remove("show"), 2600);
+}
+
+/* ================================================================
+   ACTIONS
+   ================================================================ */
+function handleSend(assoc) {
+  window.open(buildTeamsUrl(assoc), "_blank");   // open Teams chat
+  completedIds.add(assoc.id);                    // mark completed
+  saveCompleted();                               // persist
+  render();
+  showToast(`Message opened for ${assoc.name}`);
+}
+
+document.getElementById("generateBtn").addEventListener("click", () => {
+  associates = parseInput(document.getElementById("inputData").value);
+  render();
+  showToast(`${associates.length} associate(s) loaded`);
+});
+
+document.getElementById("resetBtn").addEventListener("click", () => {
+  if (completedIds.size === 0) return;
+  if (!confirm("Reset all associate statuses back to Pending?")) return;
+  completedIds.clear();
+  saveCompleted();
+  render();
+  showToast("All statuses reset to Pending");
+});
+
+searchBox.addEventListener("input", render);
+
+/* ================================================================
+   MESSAGE TEMPLATE EDITOR
+   ================================================================ */
+const templateBody = document.getElementById("templateBody");
+const templateArea = document.getElementById("messageTemplate");
+templateArea.value = messageTemplate;   // load current template into the editor
+
+document.getElementById("toggleTemplateBtn").addEventListener("click", (e) => {
+  templateBody.classList.toggle("hidden");
+  e.target.textContent = templateBody.classList.contains("hidden") ? "Edit" : "Hide";
+});
+
+document.getElementById("saveTemplateBtn").addEventListener("click", () => {
+  saveTemplate(templateArea.value);
+  showToast("Message template saved");
+});
+
+document.getElementById("restoreTemplateBtn").addEventListener("click", () => {
+  if (!confirm("Restore the default message template?")) return;
+  saveTemplate(DEFAULT_TEMPLATE);
+  templateArea.value = DEFAULT_TEMPLATE;
+  showToast("Default message restored");
+});
+
+/* ================================================================
+   INITIAL RENDER
+   ================================================================ */
+render();
+</script>
+</body>
+</html>
